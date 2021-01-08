@@ -210,7 +210,9 @@ yum install git -y
 yum install java-11-amazon-corretto -y
 git clone https://github.com/clarusway/petclinic-microservices.git
 cd petclinic-microservices
-git fetch
+for remote in `git branch -r`; do git branch --track ${remote#origin/} $remote; done
+git fetch --all
+git pull --all
 git checkout dev
 ```
 
