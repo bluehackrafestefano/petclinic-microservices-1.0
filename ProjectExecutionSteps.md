@@ -1,4 +1,4 @@
-# Project 501: Microservices CI/CD Pipeline
+# Microservices CI/CD Pipeline
 
 ## Description
 
