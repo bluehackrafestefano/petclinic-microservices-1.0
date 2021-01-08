@@ -636,7 +636,7 @@ git push --set-upstream origin feature/msp-9
 * Implement unit tests with maven wrapper for only `customer-service` microservice locally on `Dev Server`.
 
 ``` bash
-. ../mvnw clean test
+../mvnw clean test
 ```
 
 * Update POM file at root folder for Code Coverage Report using `Jacoco` tool plugin.
