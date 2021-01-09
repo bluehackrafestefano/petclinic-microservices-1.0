@@ -108,3 +108,5 @@ Outputs:
   PetclinicServerDNSName:
     Description: Petclinic App URL
     Value: !GetAtt PetclinicServer.PublicDnsName
+
+    
