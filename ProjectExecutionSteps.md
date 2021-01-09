@@ -1158,7 +1158,7 @@ git push
 
 ```bash
 PATH="$PATH:/usr/local/bin"
-CFN_KEYPAIR="call-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev.key"
 export ANSIBLE_INVENTORY="${WORKSPACE}/ansible/inventory/hosts.ini"
 export ANSIBLE_PRIVATE_KEY_FILE="${WORKSPACE}/${CFN_KEYPAIR}"
 export ANSIBLE_HOST_KEY_CHECKING=False
