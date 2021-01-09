@@ -1248,7 +1248,7 @@ git commit -m 'added ansible dynamic inventory files for dev environment'
 git push
 ```
 
-- Configure `test-creating-qa-automation-infrastructure` job and replace the existing script with the one below in order to check the Ansible dynamic inventory for `dev` environment.
+- Configure `test-creating-qa-automation-infrastructure` job and replace the existing script with the one below in order to check the Ansible dynamic inventory for `dev` environment. Don't forget to change build number of stack name with the actual stack name from AWS CF menu.
 
 ```bash
 APP_NAME="Petclinic"
@@ -1275,12 +1275,12 @@ cat ./ansible/inventory/dev_stack_swarm_workers_aws_ec2.yaml
 ansible-inventory -v -i ./ansible/inventory/dev_stack_swarm_workers_aws_ec2.yaml --graph
 ```
 
-- After running the job above, replace the script with the one below in order to test all instances within dev dynamic inventory by pinging static hosts.
+- After running the job above, replace the script with the one below in order to test all instances within dev dynamic inventory by pinging static hosts. Change build number.
 
 ```bash
 # Test dev dynamic inventory by pinging
 APP_NAME="Petclinic"
-CFN_KEYPAIR="rafe-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev-2.key"
 PATH="$PATH:/usr/local/bin"
 export ANSIBLE_PRIVATE_KEY_FILE="${WORKSPACE}/${CFN_KEYPAIR}"
 export ANSIBLE_HOST_KEY_CHECKING=False
