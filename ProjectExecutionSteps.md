@@ -1104,7 +1104,7 @@ aws --version
 
 ```bash
 PATH="$PATH:/usr/local/bin"
-CFN_KEYPAIR="rafe-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev-2.key"
 AWS_REGION="us-east-1"
 aws ec2 create-key-pair --region ${AWS_REGION} --key-name ${CFN_KEYPAIR} --query "KeyMaterial" --output text > ${CFN_KEYPAIR}
 chmod 400 ${CFN_KEYPAIR}
@@ -1116,7 +1116,7 @@ chmod 400 ${CFN_KEYPAIR}
 PATH="$PATH:/usr/local/bin"
 APP_NAME="Petclinic"
 APP_STACK_NAME="Rafe-$APP_NAME-App-${BUILD_NUMBER}"
-CFN_KEYPAIR="rafe-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev-2.key"
 CFN_TEMPLATE="./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml"
 AWS_REGION="us-east-1"
 aws cloudformation create-stack --region ${AWS_REGION} --stack-name ${APP_STACK_NAME} --capabilities CAPABILITY_IAM --template-body file://${CFN_TEMPLATE} --parameters ParameterKey=KeyPairName,ParameterValue=${CFN_KEYPAIR}
@@ -1130,7 +1130,7 @@ git checkout dev ./infrastructure/dev-docker-swarm-infrastructure-cfn-template.y
 - After running the job above, replace the script with the one below in order to test SSH connection with one of the docker instance.
 
 ```bash
-CFN_KEYPAIR="rafe-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev-2.key"
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ${WORKSPACE}/${CFN_KEYPAIR} ec2-user@172.31.40.36 hostname
 ```
 
@@ -1158,7 +1158,7 @@ git push
 
 ```bash
 PATH="$PATH:/usr/local/bin"
-CFN_KEYPAIR="rafe-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev-2.key"
 export ANSIBLE_INVENTORY="${WORKSPACE}/ansible/inventory/hosts.ini"
 export ANSIBLE_PRIVATE_KEY_FILE="${WORKSPACE}/${CFN_KEYPAIR}"
 export ANSIBLE_HOST_KEY_CHECKING=False
