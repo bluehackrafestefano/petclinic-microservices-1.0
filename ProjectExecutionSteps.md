@@ -1438,7 +1438,7 @@ ansible-playbook -i ./ansible/inventory/dev_stack_dynamic_inventory_aws_ec2.yaml
 ```bash
 PATH="$PATH:/usr/local/bin"
 APP_NAME="Petclinic"
-AWS_STACK_NAME="Call-$APP_NAME-App-${BUILD_NUMBER}"
+AWS_STACK_NAME="Rafe-$APP_NAME-App-19"
 AWS_REGION="us-east-1"
 aws cloudformation delete-stack --region ${AWS_REGION} --stack-name ${AWS_STACK_NAME}
 ```
@@ -1447,7 +1447,7 @@ aws cloudformation delete-stack --region ${AWS_REGION} --stack-name ${AWS_STACK_
 
 ```bash
 PATH="$PATH:/usr/local/bin"
-CFN_KEYPAIR="call-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev.key"
 AWS_REGION="us-east-1"
 aws ec2 delete-key-pair --region ${AWS_REGION} --key-name ${CFN_KEYPAIR}
 rm -rf ${CFN_KEYPAIR}
@@ -1459,12 +1459,12 @@ rm -rf ${CFN_KEYPAIR}
 # Environment variables
 PATH="$PATH:/usr/local/bin"
 APP_NAME="Petclinic"
-CFN_KEYPAIR="Call-$APP_NAME-dev-${BUILD_NUMBER}.key"
+CFN_KEYPAIR="Rafe-$APP_NAME-dev-${BUILD_NUMBER}.key"
 CFN_TEMPLATE="./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml"
 AWS_REGION="us-east-1"
 export ANSIBLE_PRIVATE_KEY_FILE="${WORKSPACE}/${CFN_KEYPAIR}"
 export ANSIBLE_HOST_KEY_CHECKING=False
-export APP_STACK_NAME="Call-$APP_NAME-App-${BUILD_NUMBER}"
+export APP_STACK_NAME="Rafe-$APP_NAME-App-${BUILD_NUMBER}"
 # Create key pair for Ansible
 aws ec2 create-key-pair --region ${AWS_REGION} --key-name ${CFN_KEYPAIR} --query "KeyMaterial" --output text > ${CFN_KEYPAIR}
 chmod 400 ${CFN_KEYPAIR}
