@@ -1115,11 +1115,16 @@ chmod 400 ${CFN_KEYPAIR}
 ```bash
 PATH="$PATH:/usr/local/bin"
 APP_NAME="Petclinic"
-APP_STACK_NAME="Call-$APP_NAME-App-${BUILD_NUMBER}"
-CFN_KEYPAIR="call-ansible-test-dev.key"
+APP_STACK_NAME="Rafe-$APP_NAME-App-${BUILD_NUMBER}"
+CFN_KEYPAIR="rafe-ansible-test-dev.key"
 CFN_TEMPLATE="./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml"
 AWS_REGION="us-east-1"
 aws cloudformation create-stack --region ${AWS_REGION} --stack-name ${APP_STACK_NAME} --capabilities CAPABILITY_IAM --template-body file://${CFN_TEMPLATE} --parameters ParameterKey=KeyPairName,ParameterValue=${CFN_KEYPAIR}
+```
+- How do I copy a version of a single file from one git branch to another? Because by mistake, I did'n add ./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml in feature/msp-16 branch, and I need that to run Jenkins pipeline! Run this from the branch where you want the file to end up:
+
+```bash
+git checkout dev ./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml
 ```
 
 - After running the job above, replace the script with the one below in order to test SSH connection with one of the docker instance.
