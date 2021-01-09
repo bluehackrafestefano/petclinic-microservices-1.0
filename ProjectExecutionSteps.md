@@ -1104,7 +1104,7 @@ aws --version
 
 ```bash
 PATH="$PATH:/usr/local/bin"
-CFN_KEYPAIR="call-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev.key"
 AWS_REGION="us-east-1"
 aws ec2 create-key-pair --region ${AWS_REGION} --key-name ${CFN_KEYPAIR} --query "KeyMaterial" --output text > ${CFN_KEYPAIR}
 chmod 400 ${CFN_KEYPAIR}
