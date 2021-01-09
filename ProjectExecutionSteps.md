@@ -1115,28 +1115,35 @@ chmod 400 ${CFN_KEYPAIR}
 ```bash
 PATH="$PATH:/usr/local/bin"
 APP_NAME="Petclinic"
-APP_STACK_NAME="Call-$APP_NAME-App-${BUILD_NUMBER}"
-CFN_KEYPAIR="call-ansible-test-dev.key"
+APP_STACK_NAME="Rafe-$APP_NAME-App-${BUILD_NUMBER}"
+CFN_KEYPAIR="rafe-ansible-test-dev.key"
 CFN_TEMPLATE="./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml"
 AWS_REGION="us-east-1"
 aws cloudformation create-stack --region ${AWS_REGION} --stack-name ${APP_STACK_NAME} --capabilities CAPABILITY_IAM --template-body file://${CFN_TEMPLATE} --parameters ParameterKey=KeyPairName,ParameterValue=${CFN_KEYPAIR}
+```
+- How do I copy a version of a single file from one git branch to another? Because by mistake, I did'n add ./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml in feature/msp-16 branch, and I need that to run Jenkins pipeline! Run this from the branch where you want the file to end up:
+
+```bash
+git checkout dev ./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml
 ```
 
 - After running the job above, replace the script with the one below in order to test SSH connection with one of the docker instance.
 
 ```bash
-CFN_KEYPAIR="call-ansible-test-dev.key"
-ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ${WORKSPACE}/${CFN_KEYPAIR} ec2-user@172.31.91.243 hostname
+CFN_KEYPAIR="rafe-ansible-test-dev.key"
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ${WORKSPACE}/${CFN_KEYPAIR} ec2-user@172.31.40.36 hostname
 ```
+
+- ec2-user IP must be Private!
 
 - Prepare static inventory file with name of `hosts.ini` for Ansible under `ansible/inventory` folder using Docker machines private IP addresses.
 
 ```ini
-172.31.91.243   ansible_user=ec2-user  
-172.31.87.143   ansible_user=ec2-user
-172.31.90.30    ansible_user=ec2-user
-172.31.92.190   ansible_user=ec2-user
-172.31.88.8     ansible_user=ec2-user
+172.31.40.36   ansible_user=ec2-user  
+172.31.32.54   ansible_user=ec2-user
+172.31.47.178    ansible_user=ec2-user
+172.31.35.225   ansible_user=ec2-user
+172.31.37.164     ansible_user=ec2-user
 ```
 
 - Commit the change, then push the cloudformation template to the remote repo.
@@ -1151,7 +1158,7 @@ git push
 
 ```bash
 PATH="$PATH:/usr/local/bin"
-CFN_KEYPAIR="call-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev.key"
 export ANSIBLE_INVENTORY="${WORKSPACE}/ansible/inventory/hosts.ini"
 export ANSIBLE_PRIVATE_KEY_FILE="${WORKSPACE}/${CFN_KEYPAIR}"
 export ANSIBLE_HOST_KEY_CHECKING=False
@@ -1245,11 +1252,11 @@ git push
 
 ```bash
 APP_NAME="Petclinic"
-CFN_KEYPAIR="call-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev.key"
 PATH="$PATH:/usr/local/bin"
 export ANSIBLE_PRIVATE_KEY_FILE="${WORKSPACE}/${CFN_KEYPAIR}"
 export ANSIBLE_HOST_KEY_CHECKING=False
-export APP_STACK_NAME="Call-$APP_NAME-App-${BUILD_NUMBER}"
+export APP_STACK_NAME="Rafe-$APP_NAME-App-${BUILD_NUMBER}"
 # Dev Stack
 sed -i "s/APP_STACK_NAME/$APP_STACK_NAME/" ./ansible/inventory/dev_stack_dynamic_inventory_aws_ec2.yaml
 cat ./ansible/inventory/dev_stack_dynamic_inventory_aws_ec2.yaml
@@ -1273,11 +1280,11 @@ ansible-inventory -v -i ./ansible/inventory/dev_stack_swarm_workers_aws_ec2.yaml
 ```bash
 # Test dev dynamic inventory by pinging
 APP_NAME="Petclinic"
-CFN_KEYPAIR="call-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev.key"
 PATH="$PATH:/usr/local/bin"
 export ANSIBLE_PRIVATE_KEY_FILE="${WORKSPACE}/${CFN_KEYPAIR}"
 export ANSIBLE_HOST_KEY_CHECKING=False
-export APP_STACK_NAME="Call-$APP_NAME-App-${BUILD_NUMBER}"
+export APP_STACK_NAME="Rafe-$APP_NAME-App-${BUILD_NUMBER}"
 sed -i "s/APP_STACK_NAME/$APP_STACK_NAME/" ./ansible/inventory/dev_stack_dynamic_inventory_aws_ec2.yaml
 ansible -i ./ansible/inventory/dev_stack_dynamic_inventory_aws_ec2.yaml all -m ping
 ```
