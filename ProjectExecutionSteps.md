@@ -1252,7 +1252,7 @@ git push
 
 ```bash
 APP_NAME="Petclinic"
-CFN_KEYPAIR="rafe-ansible-test-dev.key"
+CFN_KEYPAIR="rafe-ansible-test-dev-2.key"
 PATH="$PATH:/usr/local/bin"
 export ANSIBLE_PRIVATE_KEY_FILE="${WORKSPACE}/${CFN_KEYPAIR}"
 export ANSIBLE_HOST_KEY_CHECKING=False
