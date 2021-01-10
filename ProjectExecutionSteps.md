@@ -2086,7 +2086,7 @@ git checkout feature/msp-18
 ```bash
 PATH="$PATH:/usr/local/bin"
 APP_NAME="petclinic"
-CFN_KEYPAIR="matt-${APP_NAME}-qa.key"
+CFN_KEYPAIR="rafe-${APP_NAME}-qa.key"
 AWS_REGION="us-east-1"
 aws ec2 create-key-pair --region ${AWS_REGION} --key-name ${CFN_KEYPAIR} --query "KeyMaterial" --output text > ${CFN_KEYPAIR}
 chmod 400 ${CFN_KEYPAIR}
@@ -2139,8 +2139,8 @@ compose:
 ```bash
 PATH="$PATH:/usr/local/bin"
 APP_NAME="petclinic"
-CFN_KEYPAIR="matt-${APP_NAME}-qa.key"
-APP_STACK_NAME="Matt-$APP_NAME-App-QA-${BUILD_NUMBER}"
+CFN_KEYPAIR="rafe-${APP_NAME}-qa.key"
+APP_STACK_NAME="Rafe-$APP_NAME-App-QA-${BUILD_NUMBER}"
 export ANSIBLE_PRIVATE_KEY_FILE="${JENKINS_HOME}/.ssh/${CFN_KEYPAIR}"
 export ANSIBLE_HOST_KEY_CHECKING=False
 sed -i "s/APP_STACK_NAME/$APP_STACK_NAME/" ./ansible/inventory/qa_stack_dynamic_inventory_aws_ec2.yaml
