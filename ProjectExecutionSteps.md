@@ -1590,23 +1590,31 @@ git push --set-upstream origin feature/msp-17
       * Add `*/feature/msp-17` branch to `Branches to build`
       * Click `Add build step` under `Build` and select `Execute Shell`
       * Write below script into the `Command`
-        ```bash
-        PATH="$PATH:/usr/local/bin"
-        APP_REPO_NAME="clarusway-repo/petclinic-app-dev" # Write your own repo name
-        AWS_REGION="us-east-1" #Update this line if you work on another region
-        ECR_REGISTRY="046402772087.dkr.ecr.us-east-1.amazonaws.com" # Replace this line with your ECR name
-        aws ecr create-repository \
-            --repository-name ${APP_REPO_NAME} \
-            --image-scanning-configuration scanOnPush=false \
-            --image-tag-mutability MUTABLE \
-            --region ${AWS_REGION}
-        . ./jenkins/package-with-maven-container.sh
-        . ./jenkins/prepare-tags-ecr-for-dev-docker-images.sh
-        . ./jenkins/build-dev-docker-images-for-ecr.sh
-        . ./jenkins/push-dev-docker-images-to-ecr.sh
-        ```
+```bash
+PATH="$PATH:/usr/local/bin"
+APP_REPO_NAME="rafe-repo/petclinic-app-dev" # Write your own repo name
+AWS_REGION="us-east-1" #Update this line if you work on another region
+ECR_REGISTRY="894756847358.dkr.ecr.us-east-1.amazonaws.com" # Replace this line with your ECR name
+aws ecr create-repository \
+    --repository-name ${APP_REPO_NAME} \
+    --image-scanning-configuration scanOnPush=false \
+    --image-tag-mutability MUTABLE \
+    --region ${AWS_REGION}
+. ./jenkins/package-with-maven-container.sh
+. ./jenkins/prepare-tags-ecr-for-dev-docker-images.sh
+. ./jenkins/build-dev-docker-images-for-ecr.sh
+. ./jenkins/push-dev-docker-images-to-ecr.sh
+```
       * Click `Save`
       * Click `Build now` to manually start the job.
+
+- If you need to increase volume size in AWS,
+  - Modify disk space from Volume dashboard on AWS
+  - try this commands:
+  df -h  # To see disks
+  lsblk  # To see block storage situation
+  sudo growpart /dev/xvda 1  # Grow your disk
+  sudo xfs_growfs -d /
 
 - Prepare a docker compose file for swarm deployment and save it as `docker-compose-swarm-dev.yml`.
 
