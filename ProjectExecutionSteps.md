@@ -2253,7 +2253,7 @@ git checkout feature/msp-19
 
 ```bash
 PATH="$PATH:/usr/local/bin"
-APP_REPO_NAME="clarusway-repo/petclinic-app-qa"
+APP_REPO_NAME="rafe-repo/petclinic-app-qa"
 AWS_REGION="us-east-1"
 
 aws ecr create-repository \
