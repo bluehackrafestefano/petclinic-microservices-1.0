@@ -3238,20 +3238,33 @@ git checkout feature/msp-23
 * Log into Jenkins Server and create `call-rancher.key` key-pair for Rancher Server using AWS CLI
   
 ```bash
-aws ec2 create-key-pair --region us-east-1 --key-name call-rancher.key --query KeyMaterial --output text > ~/.ssh/call-rancher.key
-chmod 400 ~/.ssh/call-rancher.key
+aws ec2 create-key-pair --region us-east-1 --key-name rafe-rancher.key --query KeyMaterial --output text > ~/.ssh/rafe-rancher.key
+chmod 400 ~/.ssh/rafe-rancher.key
 ```
 
-* Launch an EC2 instance using `Ubuntu Server 20.04 LTS (HVM) ami-0885b1f6bd170450c  (64-bit x86)` with `t2.medium` type, 16 GB root volume,  `call-rke-cluster-sg` security group, `call-rke-role` IAM Role, `Name:Call-Rancher-Cluster-Instance` tag and `call-rancher.key` key-pair. Take note of `subnet id` of EC2. 
+* Launch an EC2 instance using `Ubuntu Server 20.04 LTS (HVM) ami-0885b1f6bd170450c  (64-bit x86)` with `t2.medium` type, 16 GB root volume,  `rafe-rke-cluster-sg` security group, `rafe-rke-role` IAM Role, `Name:Rafe-Rancher-Cluster-Instance` tag and `rafe-rancher.key` key-pair. Take note of `subnet id` of EC2. 
 
-* Attach a tag to the `nodes (intances)`, `subnets` and `security group` for Rancher with `Key = kubernetes.io/cluster/Call-Rancher` and `Value = owned`.
+* Attach a tag to the `nodes (intances)`, `subnets` and `security group` for Rancher with `Key = kubernetes.io/cluster/Rafe-Rancher` and `Value = owned`.
   
   
-* Log into `Call-Rancher-Cluster-Instance` from Jenkins Server (Bastion host) and install Docker using the following script.
+* Log into `Rafe-Rancher-Cluster-Instance` from Jenkins Server (Bastion host) and install Docker using the following script.
 
 ```bash
+cd ~/.ssh
+ls
+```
+
+see the key
+
+```bash
+ssh -i "rafe-rancher.key" ubuntu@ec2-3-238-199-13.compute-1.amazonaws.com
+```
+
+key.pem cause problems, be carefull
+
 # Set hostname of instance
 sudo hostnamectl set-hostname rancher-instance-1
+bash
 # Update OS 
 sudo apt-get update -y
 sudo apt-get upgrade -y
@@ -3264,7 +3277,7 @@ sudo usermod -aG docker ubuntu
 newgrp docker
 ```
 
-* Create a target groups with name of `call-rancher-http-80-tg` with following setup and add the `rancher instances` to it.
+* Create a target groups with name of `rafe-rancher-http-80-tg` with following setup and add the `rancher instances` to it.
 
 ```bash
 Target type         : instance
@@ -3282,7 +3295,7 @@ Interval            : 10 seoconds
 Success             : 200
 ```
 
-* Create Application Load Balancer with name of `call-rancher-alb` using `call-rke-alb-sg` security group with following settings and add `call-rancher-http-80-tg` target group to it.
+* Create Application Load Balancer with name of `rafe-rancher-alb` using `rafe-rke-alb-sg` security group with following settings and add `call-rancher-http-80-tg` target group to it.
 
 ```text
 Scheme              : internet-facing
