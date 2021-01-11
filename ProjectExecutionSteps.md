@@ -3209,11 +3209,11 @@ git checkout feature/msp-23
 }
 ```
 
-* Create an IAM Role with name of `call-rke-role` to attach RKE nodes (instances) using `call-rke-controlplane-policy` and `call-rke-etcd-worker-policy`.
+* Create an IAM Role with name of `rafe-rke-role` to attach RKE nodes (instances) using `rafe-rke-controlplane-policy` and `rafe-rke-etcd-worker-policy`.
 
-* Create a security group for External Application Load Balancer of Rancher with name of `call-rke-alb-sg` and allow HTTP (Port 80) and HTTPS (Port 443) connections from anywhere.
+* Create a security group for External Application Load Balancer of Rancher with name of `rafe-rke-alb-sg` and allow HTTP (Port 80) and HTTPS (Port 443) connections from anywhere.
   
-* Create a security group for RKE Kubernetes Cluster with name of `call-rke-cluster-sg` and define following inbound and outbound rules.
+* Create a security group for RKE Kubernetes Cluster with name of `rafe-rke-cluster-sg` and define following inbound and outbound rules.
 
   * Inbound rules;
 
@@ -3295,7 +3295,7 @@ Interval            : 10 seoconds
 Success             : 200
 ```
 
-* Create Application Load Balancer with name of `rafe-rancher-alb` using `rafe-rke-alb-sg` security group with following settings and add `call-rancher-http-80-tg` target group to it.
+* Create Application Load Balancer with name of `rafe-rancher-alb` using `rafe-rke-alb-sg` security group with following settings and add `rafe-rancher-http-80-tg` target group to it.
 
 ```text
 Scheme              : internet-facing
@@ -3305,12 +3305,12 @@ IP address type     : ipv4
 Protocol            : HTTPS/HTTP
 Port                : 443/80
 Availability Zones  : Select AZs of RKE instances
-Target group        : `call-rancher-http-80-tg` target group 
+Target group        : `rafe-rancher-http-80-tg` target group 
 ```
 
 * Configure ALB Listener of HTTP on `Port 80` to redirect traffic to HTTPS on `Port 443`.
 
-* Create DNS A record for `rancher.clarusway.us` and attach the `call-rancher-alb` application load balancer to it.
+* Create DNS A record for `rancher04.farukgunal.net` and attach the `rafe-rancher-alb` application load balancer to it.
 
 * Install RKE, the Rancher Kubernetes Engine, [Kubernetes distribution and command-line tool](https://rancher.com/docs/rke/latest/en/installation/)) on Jenkins Server.
 
@@ -3325,8 +3325,8 @@ rke --version
 
 ```yaml
 nodes:
-  - address: 3.237.46.200
-    internal_address: 172.31.67.23
+  - address: 3.237.46.200  # Public IP of rancher server
+    internal_address: 172.31.67.23  # Private IP of rancher server
     user: ubuntu
     role: [controlplane, worker, etcd]
 
