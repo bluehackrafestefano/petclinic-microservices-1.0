@@ -3336,7 +3336,7 @@ services:
     creation: 6h
     retention: 24h
 
-ssh_key_path: ~/.ssh/call-rancher.key
+ssh_key_path: ~/.ssh/rafe-rancher.key
 
 # Required for external TLS termination with
 # ingress-nginx v0.22+
@@ -3350,6 +3350,7 @@ ingress:
 
 ```bash
 rke up --config ./rancher-cluster.yml
+rke remove --config ./rancher-cluster.yml
 ```
 
 * Check if the RKE Kubernetes Cluster created successfully.
