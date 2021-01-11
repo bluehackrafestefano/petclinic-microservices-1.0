@@ -2845,7 +2845,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
-  - host: petclinic.clarusway.us
+  - host: petclinic.farukgunal.net
     http:
       paths:
       - backend:
@@ -2868,7 +2868,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
-  - host: petclinic.clarusway.us
+  - host: petclinic.farukgunal.net
     http:
       paths:
       - backend:
@@ -2977,7 +2977,7 @@ metadata:
   name: api-gateway
 spec:
   rules:
-    - host: petclinic.clarusway.us
+    - host: petclinic.farukgunal.net
       http:
         paths:
           - backend:
@@ -2991,7 +2991,7 @@ metadata:
   name: customers-service
 spec:
   rules:
-  - host: petclinic.clarusway.us
+  - host: petclinic.farukgunal.net
     http:
       paths:
       - backend:
@@ -3012,7 +3012,7 @@ metadata:
   name: vets-service
 spec:
   rules:
-  - host: petclinic.clarusway.us
+  - host: petclinic.farukgunal.net
     http:
       paths:
       - backend:
@@ -3028,7 +3028,7 @@ metadata:
   name: visits-service
 spec:
   rules:
-  - host: petclinic.clarusway.us
+  - host: petclinic.farukgunal.net
     http:
       paths:
       - backend:
